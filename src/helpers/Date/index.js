@@ -13,4 +13,7 @@ export const MONTHS = {
   12: "décembre",
 };
 
-export const getMonth = (date) => MONTHS[date.getMonth()];
+export const getMonth = (date) => MONTHS[date.getMonth() + 1];
+
+const currentDate = new Date();
+console.log(getMonth(currentDate)); // Affiche le mois actuel en français
