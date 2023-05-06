@@ -1,4 +1,6 @@
+import { useEffect,useState } from "react";
 import Menu from "../../containers/Menu";
+
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
@@ -13,7 +15,37 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const { data, error, loading } = useData();
+
+  const [lastItemData,setLastItemData] = useState(null)
+if (error) {
+  // Gérer l'erreur si nécessaire
+}
+
+if (loading) {
+  // Gérer le chargement des données si nécessaire
+}
+
+// Trouver le dernier événement en triant par date, si les données sont disponibles et sont un tableau
+// const lastEvent = data && Array.isArray(data)
+//   ? console.log(data)
+//   : null;
+
+useEffect(() => {
+  console.log(data)
+
+  if(data){
+      const sortedEvents = data.events.sort((a, b) => new Date(a.date) - new Date(b.date));
+      const lastItem = sortedEvents[sortedEvents.length - 1];
+      console.log(lastItem ,"test sorted")
+      setLastItemData(lastItem)
+  }
+
+}, [data])
+
+
+
+  
   return <>
     <header>
       <Menu />
@@ -113,16 +145,22 @@ const Page = () => {
         </Modal>
       </div>
     </main>
+
     <footer className="row">
       <div className="col presta">
-        <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+        <h3>Notre dernière prestation</h3>
+        
+        {lastItemData ? (
+          <EventCard
+            imageSrc={lastItemData.cover}
+            title={lastItemData.title}
+            date={new Date(lastItemData.date)}
+            small
+            label="boom"
+          />
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
