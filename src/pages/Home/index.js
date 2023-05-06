@@ -152,6 +152,7 @@ useEffect(() => {
         
         {lastItemData ? (
           <EventCard
+            key={lastItemData.id}
             imageSrc={lastItemData.cover}
             title={lastItemData.title}
             date={new Date(lastItemData.date)}

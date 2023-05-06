@@ -29,7 +29,7 @@ const Slider = () => {
     <div className="SlideCardList">
       {byDateDesc.map((event, idx) => (
         <div
-          key={event.title}
+        key={`pagination-${event.id || idx}`}
           className={`SlideCard SlideCard--${index === idx ? "display" : "hide"}`}
         >
           <img src={event.cover} alt="forum" />
@@ -44,15 +44,18 @@ const Slider = () => {
       ))}
       <div className="SlideCard__paginationContainer">
         <div className="SlideCard__pagination">
-          {byDateDesc.map((event, radioIdx) => (
-            <input
-              key={`pagination-${event.id}`}
-              type="radio"
-              name="radio-button"
-              checked={index === radioIdx}
-              readOnly
-            />
-          ))}
+        {byDateDesc.map((event, radioIdx) => (
+  <input
+    key={`pagination-${event.id || radioIdx}`} // Utilisez l'identifiant de l'événement ou, s'il est indéfini, l'index du tableau
+    type="radio"
+    name="radio-button"
+    checked={index === radioIdx}
+    readOnly
+  />
+))}
+
+
+
         </div>
       </div>
     </div>
