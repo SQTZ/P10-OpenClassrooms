@@ -157,7 +157,7 @@ useEffect(() => {
             title={lastItemData.title}
             date={new Date(lastItemData.date)}
             small
-            label="boom"
+            label={lastItemData.type}
           />
         ) : (
           <div>Loading...</div>
